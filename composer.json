@@ -1,0 +1,27 @@
+{
+  "name": "d-andreevich/fireblocks-sdk-php",
+  "description": "PHP SDK for Fireblocks API.",
+  "keywords": ["php", "Fireblocks", "fireblocks-sdk"],
+  "type": "library",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/D-Andreevich/fireblocks-sdk-php/issues",
+    "source": "https://github.com/D-Andreevich/fireblocks-sdk-php"
+  },
+  "authors": [
+    {
+      "name": "D-Andreevich",
+      "email": "daniilshvorak@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.5",
+    "guzzlehttp/guzzle": ">=7.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "FireblocksSdkPhp\\": "src"
+    }
+  }
+}
