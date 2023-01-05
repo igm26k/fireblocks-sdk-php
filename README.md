@@ -1,1 +1,1 @@
-# -fireblocks-sdk-php
+# fireblocks-sdk-php
