@@ -14,7 +14,7 @@ For the complete API reference, go to the [API reference](https://docs.fireblock
 ### Requirements
 `PHP >=7.2.`
 
-`GuzzleHttp >=7.0.X`
+`GuzzleHttp >=6.0.X`
 
 ## Installation
 
@@ -36,7 +36,7 @@ for further information on how to use it.
 ```php
 <?php
 
-use FireblocksSdkPhp\FireblocksSDK
+use FireblocksSdkPhp\FireblocksSDK;
 
 $private_key = file_get_contents('fireblocks_secret.key');
 $api_key = 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX';

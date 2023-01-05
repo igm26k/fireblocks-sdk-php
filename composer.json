@@ -1,7 +1,11 @@
 {
   "name": "d-andreevich/fireblocks-sdk-php",
   "description": "PHP SDK for Fireblocks API.",
-  "keywords": ["php", "Fireblocks", "fireblocks-sdk"],
+  "keywords": [
+    "php",
+    "Fireblocks",
+    "fireblocks-sdk"
+  ],
   "type": "library",
   "license": "MIT",
   "minimum-stability": "dev",

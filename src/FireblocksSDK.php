@@ -1425,7 +1425,7 @@ class FireblocksSDK
             throw new FireblocksApiException("Got invalid signing algorithm type: {$raw_message->algorithm}");
         }
 
-        return $this->create_transaction($asset_id, null,$source, null,null,null,false, TransactionEnums::RAW(),$note,null, null,null,["rawMessageData" => get_object_vars($raw_message)]);
+        return $this->create_transaction($asset_id, null, $source, null, null, null, false, TransactionEnums::RAW(), $note, null, null, null, ["rawMessageData" => get_object_vars($raw_message)]);
     }
 
     /**
@@ -1459,7 +1459,7 @@ class FireblocksSDK
      * @throws FireblocksApiException
      */
     public function create_transaction(string        $asset_id = null, string $amount = null, TransferPeerPath $source = null, DestinationTransferPeerPath $destination = null,
-                                       string         $fee = null, int $gas_price = null, bool $wait_for_status = false, TransactionEnums $tx_type = null, string $note = null, string $network_fee = null,
+                                       string        $fee = null, int $gas_price = null, bool $wait_for_status = false, TransactionEnums $tx_type = null, string $note = null, string $network_fee = null,
                                        string        $customer_ref_id = null, string $replace_tx_by_hash = null, $extra_parameters = null, array $destinations = null,
                                        FeeLevelEnums $fee_level = null, bool $fail_on_low_fee = null, string $max_fee = null, int $gas_limit = null, string $idempotency_key = null,
                                        string        $external_tx_id = null, bool $treat_as_gross_amount = null, bool $force_sweep = null, int $priority_fee = null)
