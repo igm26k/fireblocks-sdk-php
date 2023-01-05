@@ -34,6 +34,8 @@ for further information on how to use it.
 
 
 ```php
+<?php
+
 use FireblocksSdkPhp\FireblocksSDK
 
 $private_key = file_get_contents('fireblocks_secret.key');
