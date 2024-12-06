@@ -21,7 +21,7 @@ For the complete API reference, go to the [API reference](https://docs.fireblock
 You can install the Provider as a composer package.
 
 ```bash
-composer require d-andreevich/fireblocks-sdk-php
+composer require igm26k/fireblocks-sdk-php
 ```
 
 ## Usage
