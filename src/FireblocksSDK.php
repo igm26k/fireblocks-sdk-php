@@ -32,7 +32,7 @@ class FireblocksSDK
 
     public function get_nft(string $id)
     {
-        return $this->apiClient->get_request("/v1/nfts/tokens/" . $id);
+        return $this->apiClient->get_request("/v1/nfts/tokens/" . urlencode(basename($id)));
     }
 
 
@@ -63,7 +63,7 @@ class FireblocksSDK
 
     public function refresh_nft_metadata(string $id)
     {
-        return $this->apiClient->put_request("/v1/nfts/tokens/" . $id);
+        return $this->apiClient->put_request("/v1/nfts/tokens/" . urlencode(basename($id)));
     }
 
     public function refresh_nft_ownership_by_vault(string $blockchain_descriptor, string $vault_account_id)
@@ -173,6 +173,7 @@ class FireblocksSDK
      */
     public function get_vault_account_by_id(string $vault_account_id)
     {
+        $vault_account_id = urlencode($vault_account_id);
         return $this->apiClient->get_request("/v1/vault/accounts/{$vault_account_id}");
     }
 
@@ -184,6 +185,8 @@ class FireblocksSDK
      */
     public function get_vault_account_asset(string $vault_account_id, string $asset_id)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->get_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}");
     }
 
@@ -196,6 +199,8 @@ class FireblocksSDK
      */
     public function refresh_vault_asset_balance(string $vault_account_id, string $asset_id, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/balance", [], $idempotency_key);
     }
 
@@ -207,6 +212,8 @@ class FireblocksSDK
      */
     public function get_deposit_addresses(string $vault_account_id, string $asset_id)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->get_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/addresses");
     }
 
@@ -218,6 +225,8 @@ class FireblocksSDK
      */
     public function get_unspent_inputs(string $vault_account_id, string $asset_id)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->get_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/unspent_inputs");
     }
 
@@ -232,6 +241,8 @@ class FireblocksSDK
      */
     public function generate_new_address(string $vault_account_id, string $asset_id, string $description = null, string $customer_ref_id = null, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/addresses",
             [
                 "description" => $description ?? '', "customerRefId" => $customer_ref_id ?? ''
@@ -250,7 +261,11 @@ class FireblocksSDK
      */
     public function set_address_description(string $vault_account_id, string $asset_id, string $address, string $tag = null, string $description = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
+        $address = urlencode($address);
         if ($tag) {
+            $tag = urlencode($tag);
             return $this->apiClient->put_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/addresses/{$address}:{$tag}",
                 [
                     "description" => $description ?? ''
@@ -297,6 +312,7 @@ class FireblocksSDK
      */
     public function get_network_connection_by_id(string $connection_id)
     {
+        $connection_id = urlencode($connection_id);
         return $this->apiClient->get_request("/v1/network_connections/{$connection_id}");
     }
 
@@ -306,6 +322,7 @@ class FireblocksSDK
      */
     public function remove_network_connection(string $connection_id)
     {
+        $connection_id = urlencode($connection_id);
         return $this->apiClient->delete_request("/v1/network_connections/{$connection_id}");
     }
 
@@ -317,6 +334,7 @@ class FireblocksSDK
      */
     public function set_network_connection_routing_policy(string $connection_id, $routing_policy = [])
     {
+        $connection_id = urlencode($connection_id);
         $body = [
             "routingPolicy" => $routing_policy
         ];
@@ -358,6 +376,7 @@ class FireblocksSDK
      */
     public function get_network_id(string $network_id)
     {
+        $network_id = urlencode($network_id);
         return $this->apiClient->get_request("/v1/network_ids/{$network_id}");
     }
 
@@ -369,6 +388,7 @@ class FireblocksSDK
      */
     public function set_network_id_discoverability(string $network_id, bool $is_discoverable)
     {
+        $network_id = urlencode($network_id);
         $body = [
             "isDiscoverable" => $is_discoverable
         ];
@@ -384,6 +404,7 @@ class FireblocksSDK
      */
     public function set_network_id_routing_policy(string $network_id, $routing_policy = [])
     {
+        $network_id = urlencode($network_id);
         $body = [
             "routingPolicy" => $routing_policy
         ];
@@ -409,6 +430,7 @@ class FireblocksSDK
      */
     public function get_exchange_account(string $exchange_account_id)
     {
+        $exchange_account_id = urlencode($exchange_account_id);
         return $this->apiClient->get_request("/v1/exchange_accounts/{$exchange_account_id}");
     }
 
@@ -421,6 +443,8 @@ class FireblocksSDK
      */
     public function get_exchange_account_asset(string $exchange_account_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $exchange_account_id = urlencode($exchange_account_id);
         return $this->apiClient->get_request("/v1/exchange_accounts/{$exchange_account_id}/{$asset_id}");
     }
 
@@ -436,6 +460,8 @@ class FireblocksSDK
      */
     public function transfer_to_subaccount(string $exchange_account_id, string $subaccount_id, string $asset_id, $amount, string $idempotency_key = null)
     {
+        $asset_id = urlencode($asset_id);
+        $exchange_account_id = urlencode($exchange_account_id);
         settype($amount, "double");
 
         $body = [
@@ -458,6 +484,8 @@ class FireblocksSDK
      */
     public function transfer_from_subaccount(string $exchange_account_id, string $subaccount_id, string $asset_id, $amount, string $idempotency_key = null)
     {
+        $asset_id = urlencode($asset_id);
+        $exchange_account_id = urlencode($exchange_account_id);
         settype($amount, "double");
         $body = [
             "subaccountId" => $subaccount_id,
@@ -486,6 +514,7 @@ class FireblocksSDK
      */
     public function get_fiat_account_by_id(string $account_id)
     {
+        $account_id = urlencode($account_id);
         return $this->apiClient->get_request("/v1/fiat_accounts/{$account_id}");
     }
 
@@ -498,6 +527,7 @@ class FireblocksSDK
      */
     public function redeem_to_linked_dda(string $account_id, $amount, string $idempotency_key = null)
     {
+        $account_id = urlencode($account_id);
         settype($amount, "double");
         $body = [
             "amount" => $amount,
@@ -515,6 +545,7 @@ class FireblocksSDK
      */
     public function deposit_from_linked_dda(string $account_id, $amount, string $idempotency_key = null)
     {
+        $account_id = urlencode($account_id);
         settype($amount, "double");
         $body = [
             "amount" => $amount,
@@ -640,6 +671,7 @@ class FireblocksSDK
      */
     public function get_internal_wallet(string $wallet_id)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->get_request("/v1/internal_wallets/{$wallet_id}");
     }
 
@@ -652,6 +684,8 @@ class FireblocksSDK
      */
     public function get_internal_wallet_asset(string $wallet_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->get_request("/v1/internal_wallets/{$wallet_id}/{$asset_id}");
     }
 
@@ -673,6 +707,7 @@ class FireblocksSDK
      */
     public function get_external_wallet(string $wallet_id)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->get_request("/v1/external_wallets/{$wallet_id}");
     }
 
@@ -685,6 +720,8 @@ class FireblocksSDK
      */
     public function get_external_wallet_asset(string $wallet_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->get_request("/v1/external_wallets/{$wallet_id}/{$asset_id}");
     }
 
@@ -706,6 +743,7 @@ class FireblocksSDK
      */
     public function get_contract_wallet(string $wallet_id)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->get_request("/v1/contracts/{$wallet_id}");
     }
 
@@ -718,6 +756,8 @@ class FireblocksSDK
      */
     public function get_contract_wallet_asset(string $wallet_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->get_request("/v1/contracts/{$wallet_id}/{$asset_id}");
     }
 
@@ -729,6 +769,7 @@ class FireblocksSDK
      */
     public function get_transaction_by_id(string $txid)
     {
+        $txid = urlencode($txid);
         return $this->apiClient->get_request("/v1/transactions/{$txid}");
     }
 
@@ -740,6 +781,7 @@ class FireblocksSDK
      */
     public function get_transaction_by_external_id(string $external_tx_id)
     {
+        $external_tx_id = urlencode($external_tx_id);
         return $this->apiClient->get_request("/v1/transactions/external_tx_id/{$external_tx_id}");
     }
 
@@ -800,6 +842,7 @@ class FireblocksSDK
      */
     public function cancel_transaction_by_id(string $txid, string $idempotency_key = null)
     {
+        $txid = urlencode($txid);
 
         return $this->apiClient->post_request("/v1/transactions/{$txid}/cancel", [], $idempotency_key);
     }
@@ -814,6 +857,7 @@ class FireblocksSDK
      */
     public function drop_transaction(string $txid, string $fee_level = null, string $requested_fee = null, string $idempotency_key = null)
     {
+        $txid = urlencode($txid);
         $body = [];
 
         if ($fee_level)
@@ -856,7 +900,7 @@ class FireblocksSDK
      */
     public function hide_vault_account(string $vault_account_id, $idempotency_key = null)
     {
-
+        $vault_account_id = urlencode($vault_account_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/hide", [], $idempotency_key);
     }
 
@@ -868,6 +912,7 @@ class FireblocksSDK
      */
     public function unhide_vault_account(string $vault_account_id, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/unhide", [], $idempotency_key);
     }
 
@@ -879,6 +924,7 @@ class FireblocksSDK
      */
     public function freeze_transaction_by_id(string $txId, string $idempotency_key = null)
     {
+        $txId = urlencode($txId);
         return $this->apiClient->post_request("/v1/transactions/{$txId}/freeze", [], $idempotency_key);
     }
 
@@ -890,6 +936,7 @@ class FireblocksSDK
      */
     public function unfreeze_transaction_by_id(string $txId, string $idempotency_key = null)
     {
+        $txId = urlencode($txId);
         return $this->apiClient->post_request("/v1/transactions/{$txId}/unfreeze", [], $idempotency_key);
     }
 
@@ -901,6 +948,7 @@ class FireblocksSDK
      */
     public function update_vault_account(string $vault_account_id, string $name)
     {
+        $vault_account_id = urlencode($vault_account_id);
         return $this->apiClient->put_request("/v1/vault/accounts/{$vault_account_id}", ['name' => $name]);
     }
 
@@ -913,6 +961,8 @@ class FireblocksSDK
      */
     public function create_vault_asset(string $vault_account_id, string $asset_id, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}", [], $idempotency_key);
     }
 
@@ -925,6 +975,8 @@ class FireblocksSDK
      */
     public function activate_vault_asset(string $vault_account_id, string $asset_id, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/activate", [], $idempotency_key);
     }
 
@@ -937,6 +989,7 @@ class FireblocksSDK
      */
     public function set_vault_account_customer_ref_id(string $vault_account_id, string $customer_ref_id, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/set_customer_ref_id", ["customerRefId" => $customer_ref_id], $idempotency_key);
     }
 
@@ -951,6 +1004,9 @@ class FireblocksSDK
      */
     public function set_vault_account_customer_ref_id_for_address(string $vault_account_id, string $asset_id, string $address, string $customer_ref_id = null, $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
+        $address = urlencode($address);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/addresses/{$address}/set_customer_ref_id", ["customerRefId" => $customer_ref_id ?? ''], $idempotency_key);
     }
 
@@ -977,6 +1033,8 @@ class FireblocksSDK
      */
     public function create_contract_wallet_asset(string $wallet_id, string $assetId, string $address, string $tag = null, string $idempotency_key = null)
     {
+        $wallet_id = urlencode($wallet_id);
+        $assetId = urlencode($assetId);
         return $this->apiClient->post_request("/v1/contracts/{$wallet_id}/{$assetId}", ["address" => $address, "tag" => $tag], $idempotency_key);
     }
 
@@ -1015,6 +1073,8 @@ class FireblocksSDK
      */
     public function create_external_wallet_asset(string $wallet_id, string $asset_id, string $address, string $tag = null, string $idempotency_key = null)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         $body = [
             "address" => $address
         ];
@@ -1035,6 +1095,8 @@ class FireblocksSDK
      */
     public function create_internal_wallet_asset(string $wallet_id, string $asset_id, string $address, string $tag = null, string $idempotency_key = null)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
 
         $body = [
             "address" => $address
@@ -1053,6 +1115,7 @@ class FireblocksSDK
      */
     public function delete_contract_wallet(string $wallet_id)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->delete_request("/v1/contracts/{$wallet_id}");
     }
 
@@ -1065,6 +1128,8 @@ class FireblocksSDK
      */
     public function delete_contract_wallet_asset(string $wallet_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->delete_request("/v1/contracts/{$wallet_id}/{$asset_id}");
     }
 
@@ -1076,6 +1141,7 @@ class FireblocksSDK
      */
     public function delete_internal_wallet(string $wallet_id)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->delete_request("/v1/internal_wallets/{$wallet_id}");
     }
 
@@ -1087,6 +1153,7 @@ class FireblocksSDK
      */
     public function delete_external_wallet(string $wallet_id)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->delete_request("/v1/external_wallets/{$wallet_id}");
     }
 
@@ -1099,6 +1166,8 @@ class FireblocksSDK
      */
     public function delete_internal_wallet_asset(string $wallet_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->delete_request("/v1/internal_wallets/{$wallet_id}/{$asset_id}");
     }
 
@@ -1111,6 +1180,8 @@ class FireblocksSDK
      */
     public function delete_external_wallet_asset(string $wallet_id, string $asset_id)
     {
+        $asset_id = urlencode($asset_id);
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->delete_request("/v1/external_wallets/{$wallet_id}/{$asset_id}");
     }
 
@@ -1123,6 +1194,7 @@ class FireblocksSDK
      */
     public function set_customer_ref_id_for_internal_wallet(string $wallet_id, string $customer_ref_id = null, string $idempotency_key = null)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->post_request("/v1/internal_wallets/{$wallet_id}/set_customer_ref_id", ["customerRefId" => $customer_ref_id ?? ''], $idempotency_key);
     }
 
@@ -1135,6 +1207,7 @@ class FireblocksSDK
      */
     public function set_customer_ref_id_for_external_wallet(string $wallet_id, string $customer_ref_id = null, string $idempotency_key = null)
     {
+        $wallet_id = urlencode($wallet_id);
         return $this->apiClient->post_request("/v1/external_wallets/{$wallet_id}/set_customer_ref_id", ["customerRefId" => $customer_ref_id ?? ''], $idempotency_key);
     }
 
@@ -1187,6 +1260,7 @@ class FireblocksSDK
      */
     public function get_transfer_ticket_by_id(string $ticket_id)
     {
+        $ticket_id = urlencode($ticket_id);
         return $this->apiClient->get_request("/v1/transfer_tickets/{$ticket_id}");
     }
 
@@ -1199,6 +1273,8 @@ class FireblocksSDK
      */
     public function get_transfer_ticket_term(string $ticket_id, string $term_id)
     {
+        $ticket_id = urlencode($ticket_id);
+        $term_id = urlencode($term_id);
         return $this->apiClient->get_request("/v1/transfer_tickets/{$ticket_id}/{$term_id}");
     }
 
@@ -1210,6 +1286,7 @@ class FireblocksSDK
      */
     public function cancel_transfer_ticket(string $ticket_id, string $idempotency_key = null)
     {
+        $ticket_id = urlencode($ticket_id);
         return $this->apiClient->post_request("/v1/transfer_tickets/{$ticket_id}/cancel", [], $idempotency_key);
     }
 
@@ -1223,6 +1300,8 @@ class FireblocksSDK
      */
     public function execute_ticket_term(string $ticket_id, string $term_id, TransferPeerPath $source = null, $idempotency_key = null)
     {
+        $ticket_id = urlencode($ticket_id);
+        $term_id = urlencode($term_id);
         $body = [];
 
         if ($source)
@@ -1240,6 +1319,7 @@ class FireblocksSDK
      */
     public function set_confirmation_threshold_for_txid(string $txid, string $required_confirmations_number, string $idempotency_key = null)
     {
+        $txid = urlencode($txid);
         $body = [
             "numOfConfirmations" => $required_confirmations_number
         ];
@@ -1256,6 +1336,7 @@ class FireblocksSDK
      */
     public function set_confirmation_threshold_for_txhash(string $txhash, string $required_confirmations_number, string $idempotency_key = null)
     {
+        $txhash = urlencode($txhash);
         $body = [
             "numOfConfirmations" => $required_confirmations_number
         ];
@@ -1297,6 +1378,10 @@ class FireblocksSDK
      */
     public function get_public_key_info_for_vault_account(string $asset_id, string $vault_account_id, string $change, string $address_index, bool $compressed = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
+        $change = urlencode($change);
+        $address_index = urlencode($address_index);
         $params = [];
 
         if ($compressed)
@@ -1317,6 +1402,8 @@ class FireblocksSDK
      */
     public function allocate_funds_to_private_ledger(string $vault_account_id, string $asset, string $allocation_id, string $amount, bool $treat_as_gross_amount = null, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset = urlencode($asset);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset}/lock_allocation", ["allocationId" => $allocation_id, "amount" => $amount, "treatAsGrossAmount" => $treat_as_gross_amount ?? false], $idempotency_key);
     }
 
@@ -1331,6 +1418,8 @@ class FireblocksSDK
      */
     public function deallocate_funds_from_private_ledger(string $vault_account_id, string $asset, string $allocation_id, string $amount, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset = urlencode($asset);
         return $this->apiClient->post_request("/v1/vault/accounts/{$vault_account_id}/{$asset}/release_allocation", ["allocationId" => $allocation_id, "amount" => $amount], $idempotency_key);
     }
 
@@ -1344,8 +1433,10 @@ class FireblocksSDK
     {
         $url = "/v1/gas_station";
 
-        if ($asset_id)
+        if ($asset_id) {
+            $asset_id = urlencode($asset_id);
             $url .= "/{$asset_id}";
+        }
 
         return $this->apiClient->get_request($url);
     }
@@ -1362,8 +1453,10 @@ class FireblocksSDK
     {
         $url = "/v1/gas_station/configuration";
 
-        if ($asset_id)
+        if ($asset_id) {
+            $asset_id = urlencode($asset_id);
             $url .= "/{$asset_id}";
+        }
 
         $body = [
             "gasThreshold" => $gas_threshold,
@@ -1404,8 +1497,10 @@ class FireblocksSDK
     {
         $url = "/v1/vault/assets";
 
-        if ($asset_id)
+        if ($asset_id) {
+            $asset_id = urlencode($asset_id);
             $url .= "/{$asset_id}";
+        }
 
         return $this->apiClient->get_request($url);
     }
@@ -1554,6 +1649,7 @@ class FireblocksSDK
      */
     public function set_auto_fuel(string $vault_account_id, bool $auto_fuel, string $idempotency_key = null)
     {
+        $vault_account_id = urlencode($vault_account_id);
         $body = [
             "autoFuel" => $auto_fuel
         ];
@@ -1570,6 +1666,7 @@ class FireblocksSDK
      */
     public function resend_transaction_webhooks_by_id(string $tx_id, bool $resend_created, bool $resend_status_updated)
     {
+        $tx_id = urlencode($tx_id);
         $body = [
             "resendCreated"       => $resend_created,
             "resendStatusUpdated" => $resend_status_updated
@@ -1588,6 +1685,8 @@ class FireblocksSDK
      */
     public function get_max_spendable_amount(string $vault_account_id, string $asset_id, bool $manual_signing = false)
     {
+        $vault_account_id = urlencode($vault_account_id);
+        $asset_id = urlencode($asset_id);
         return $this->apiClient->get_request("/v1/vault/accounts/{$vault_account_id}/{$asset_id}/max_spendable_amount?manual_signing={manual_signing}");
     }
 
@@ -1600,6 +1699,8 @@ class FireblocksSDK
      */
     public function validate_address(string $asset_id, string $address)
     {
+        $asset_id = urlencode($asset_id);
+        $address = urlencode($address);
         return $this->apiClient->get_request("/v1/transactions/validate_address/{$asset_id}/{$address}");
     }
 
@@ -1640,6 +1741,7 @@ class FireblocksSDK
      */
     public function get_off_exchange_by_id(string $off_exchange_id)
     {
+        $off_exchange_id = urlencode($off_exchange_id);
         return $this->apiClient->get_request("/v1/off_exchange_accounts/{$off_exchange_id}");
     }
 
@@ -1651,6 +1753,7 @@ class FireblocksSDK
      */
     public function settle_off_exchange_by_id(string $off_exchange_id, string $idempotency_key = null)
     {
+        $off_exchange_id = urlencode($off_exchange_id);
         return $this->apiClient->post_request("/v1/off_exchanges/{$off_exchange_id}/settle", [], $idempotency_key);
     }
 
@@ -1663,6 +1766,7 @@ class FireblocksSDK
      */
     public function set_fee_payer_configuration(string $base_asset, string $fee_payer_account_id, string $idempotency_key = null)
     {
+        $base_asset = urlencode($base_asset);
         $body = [
             "feePayerAccountId" => $fee_payer_account_id
         ];
@@ -1678,6 +1782,7 @@ class FireblocksSDK
      */
     public function get_fee_payer_configuration(string $base_asset)
     {
+        $base_asset = urlencode($base_asset);
         return $this->apiClient->get_request("/v1/fee_payer/{$base_asset}");
     }
 
@@ -1689,6 +1794,7 @@ class FireblocksSDK
      */
     public function remove_fee_payer_configuration(string $base_asset)
     {
+        $base_asset = urlencode($base_asset);
         return $this->apiClient->delete_request("/v1/fee_payer/{$base_asset}");
     }
 }
